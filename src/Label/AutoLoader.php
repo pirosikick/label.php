@@ -56,13 +56,14 @@ class AutoLoader
      */
     static public function autoload($className)
     {
-        $className = ltrim($className, '\\');
+        if (__NAMESPACE__.'\\' === substr($className, 0, strlen(__NAMESPACE__.'\\'))) {
 
-        if (strpos($className, '\\') !== false) {
-            $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+            $filePath = self::getBaseDir() . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+
+            if (is_readable($filePath)) {
+                require $filePath;
+            }
         }
-
-        require self::getBaseDir() . DIRECTORY_SEPARATOR . $className . '.php';
     }
 
     /**
