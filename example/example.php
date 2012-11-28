@@ -23,3 +23,6 @@ $error = new Label\LabelSet(array(
 
 echo $error->get('jp.404', 'http://hoge.jp/'), "\n";
 echo $error->get('en.404', 'http://hoge.com/'), "\n";
+
+$error->context('jp');
+echo $error->get('404', 'http://hoge.jp/'), "\n";

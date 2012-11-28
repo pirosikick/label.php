@@ -11,10 +11,13 @@ namespace Label;
 
 /**
  * LabelSet
+ *
+ * @author Hiroyuki Anai<hiroyukianai@gmail.com>
  */
 class LabelSet
 {
     private $_labelSet;
+    private $_context = null;
 
     /**
      * constructor
@@ -39,7 +42,7 @@ class LabelSet
     public function get($path, $assignData = false)
     {
         $path = explode('.', trim($path, '.'));
-        $label = $this->_find($path, $this->_labelSet);
+        $label = $this->_find($path, $this->_context !== null ? $this->_context : $this->_labelSet);
         if ($label === null || empty($assignData)) {
             return $label;
         }
@@ -57,6 +60,35 @@ class LabelSet
     public function display($path, $assignData = false)
     {
         echo $this->get($path, $assignData);
+    }
+
+    /**
+     * set context
+     *
+     * @param string $path
+     * @access public
+     * @return void
+     */
+    public function context($path)
+    {
+        if ($context = $this->get($path)) {
+            if (is_array($context)) {
+                $this->_context = $context;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * reset context
+     *
+     * @access public
+     * @return void
+     */
+    public function resetContext()
+    {
+        $this->_context = null;
     }
 
     /**

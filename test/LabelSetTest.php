@@ -65,25 +65,22 @@ class LabelSetTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers Label\LabelSet::context
-     * @todo   Implement testContext().
      */
     public function testContext()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->context('fuga'));
+        $this->assertEquals($this->object->get('a'), 'fuga');
+        $this->assertNull($this->object->get('b'));
     }
 
     /**
      * @covers Label\LabelSet::resetContext
-     * @todo   Implement testResetContext().
      */
     public function testResetContext()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->context('fuga'));
+        $this->assertEquals($this->object->get('a'), 'fuga');
+        $this->object->resetContext();
+        $this->assertNull($this->object->get('a'));
     }
 }
