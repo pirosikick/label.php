@@ -14,7 +14,7 @@ namespace Label;
  *
  * @author Hiroyuki Anai<hiroyukianai@gmail.com>
  */
-class LabelSet
+class LabelSet implements \ArrayAccess
 {
     private $_labelSet;
     private $_context = null;
@@ -89,6 +89,38 @@ class LabelSet
     public function resetContext()
     {
         $this->_context = null;
+    }
+
+    /**
+     * get label by array access
+     *
+     * @param string $offset
+     * @access public
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * checks whether a label exists
+     *
+     * @param string $offset
+     * @access public
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return ($this->get($offset) !== null);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+    }
+
+    public function offsetUnset($offset)
+    {
     }
 
     /**
