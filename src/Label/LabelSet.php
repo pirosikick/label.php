@@ -35,18 +35,17 @@ class LabelSet implements \ArrayAccess
      * get label
      *
      * @param string $path
-     * @param mixed $assignData string or array
      * @access public
      * @return string
      */
-    public function get($path, $assignData = false)
+    public function get($path)
     {
         $path = explode('.', trim($path, '.'));
         $label = $this->_find($path, $this->_context !== null ? $this->_context : $this->_labelSet);
-        if ($label === null || empty($assignData)) {
-            return $label;
+        if (is_string($label)) {
+            return new StringLabel($label);
         }
-        return $this->_assign($label, $assignData);
+        return $label;
     }
 
     /**
@@ -57,9 +56,85 @@ class LabelSet implements \ArrayAccess
      * @access public
      * @return void
      */
-    public function display($path, $assignData = false)
+    public function display($path)
     {
-        echo $this->get($path, $assignData);
+        echo $this->get($path);
+    }
+
+    /**
+     * set context
+     *
+     * @param string $path
+     * @access public
+     * @return void
+     */
+    public function context($path)
+    {
+        if ($context = $this->get($path)) {
+            if (is_array($context)) {
+                $this->_context = $context;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * reset context
+     *
+     * @access public
+     * @return void
+     */
+    public function resetContext()
+    {
+        $this->_context = null;
+    }
+
+    /**
+     * get label by array access
+     *
+     * @param string $offset
+     * @access public
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * checks whether a label exists
+     *
+     * @param string $offset
+     * @access public
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return ($this->get($offset) !== null);
+    }
+
+    /**
+     * offsetSet
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     * @access public
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+    }
+
+    /**
+     * offsetUnset
+     *
+     * @param mixed $offset
+     * @access public
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
     }
 
     /**
@@ -141,21 +216,5 @@ class LabelSet implements \ArrayAccess
             return $this->_find($path, $labelSet[$current]);
         }
         return null;
-    }
-
-    /**
-     * assign data to label
-     *
-     * @param mixed $label
-     * @param mixed $assignData
-     * @access private
-     * @return void
-     */
-    private function _assign($label, $assignData)
-    {
-        if (is_array($assignData)) {
-            return vsprintf($label, $assignData);
-        }
-        return sprintf($label, $assignData);
     }
 }

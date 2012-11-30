@@ -9,8 +9,8 @@ $employees = new Label\LabelSet(array(
     ),
 ));
 
-echo $employees->get('hanai.firstname'), "\n";
-echo $employees->get('hanai.lastname'), "\n";
+echo $employees['hanai.firstname'], "\n";
+echo $employees['hanai.lastname'], "\n";
 
 $error = new Label\LabelSet(array(
     'jp' => array(
@@ -21,8 +21,10 @@ $error = new Label\LabelSet(array(
     ),
 ));
 
-echo $error->get('jp.404', 'http://hoge.jp/'), "\n";
-echo $error->get('en.404', 'http://hoge.com/'), "\n";
+echo $error['jp.404']->sprintf('http://hoge.jp/'), "\n";
+echo $error['en.404']->sprintf('http://hoge.com/'), "\n";
+
+$error['jp.404']->sprintf('http://hoge.jp/');
 
 $error->context('jp');
-echo $error->get('404', 'http://hoge.jp/'), "\n";
+echo $error['404']->sprintf('http://hoge.jp/'), "\n";

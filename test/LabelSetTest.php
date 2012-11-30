@@ -45,10 +45,29 @@ class LabelSetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->object->get('hoge.a'), 'hoge');
         $this->assertEquals($this->object->get('hoge.a.'), 'hoge');
         $this->assertEquals($this->object->get('.hoge.a'), 'hoge');
-        $this->assertEquals($this->object->get('hoge.hoge'), null);
-        $this->assertEquals($this->object->get('hoge.b', 'hoge'), 'hoge hoge');
-        $this->assertEquals($this->object->get('hoge.b', array('hoge')), 'hoge hoge');
-        $this->assertEquals($this->object->get('hoge.c', array('hoge', 'hoge')), 'hoge hoge');
+
+        $this->assertInstanceOf('Label\StringLabel', $this->object->get('hoge.a'));
+
+        $this->assertNull($this->object->get('hoge.hoge'));
+    }
+
+    /**
+     * @covers Label\LabelSet::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->object['hoge.a'], 'hoge');
+        $this->assertEquals($this->object['hoge.hoge'], null);
+    }
+
+    /**
+     * @covers Label\LabelSet::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertTrue(isset($this->object['hoge']));
+        $this->assertTrue(isset($this->object['hoge.a']));
+        $this->assertFalse(isset($this->object['hoge.hoge']));
     }
 
     /**
