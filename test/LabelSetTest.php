@@ -71,25 +71,6 @@ class LabelSetTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Label\LabelSet::offsetGet
-     */
-    public function testOffsetGet()
-    {
-        $this->assertEquals($this->object['hoge.a'], 'hoge');
-        $this->assertEquals($this->object['hoge.hoge'], null);
-    }
-
-    /**
-     * @covers Label\LabelSet::offsetExists
-     */
-    public function testOffsetExists()
-    {
-        $this->assertTrue(isset($this->object['hoge']));
-        $this->assertTrue(isset($this->object['hoge.a']));
-        $this->assertFalse(isset($this->object['hoge.hoge']));
-    }
-
-    /**
      * @covers Label\LabelSet::display
      * @todo   Implement testDisplay().
      */
