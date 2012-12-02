@@ -62,35 +62,6 @@ class LabelSet implements \ArrayAccess
     }
 
     /**
-     * set context
-     *
-     * @param string $path
-     * @access public
-     * @return void
-     */
-    public function context($path)
-    {
-        if ($context = $this->get($path)) {
-            if (is_array($context)) {
-                $this->_context = $context;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * reset context
-     *
-     * @access public
-     * @return void
-     */
-    public function resetContext()
-    {
-        $this->_context = null;
-    }
-
-    /**
      * get label by array access
      *
      * @param string $offset
@@ -164,38 +135,6 @@ class LabelSet implements \ArrayAccess
     public function resetContext()
     {
         $this->_context = null;
-    }
-
-    /**
-     * get label by array access
-     *
-     * @param string $offset
-     * @access public
-     * @return mixed
-     */
-    public function offsetGet($offset)
-    {
-        return $this->get($offset);
-    }
-
-    /**
-     * checks whether a label exists
-     *
-     * @param string $offset
-     * @access public
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return ($this->get($offset) !== null);
-    }
-
-    public function offsetSet($offset, $value)
-    {
-    }
-
-    public function offsetUnset($offset)
-    {
     }
 
     /**
