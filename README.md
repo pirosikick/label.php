@@ -1,5 +1,8 @@
 label.php
 =========
+
+[![Build Status](https://secure.travis-ci.org/pirosikick/label.php.png?branch=dev)](https://travis-ci.org/pirosikick/label.php)
+
 label.php manages set of text label.
 
 Usage
@@ -16,8 +19,8 @@ $employees = new Label\LabelSet(array(
     ),
 ));
 
-echo $employees->get('hanai.firstname'), "\n"; // Hiroyuki
-echo $employees->get('hanai.lastname'), "\n"; // Anai
+echo $employees['hanai.firstname'], "\n"; // Hiroyuki
+echo $employees['hanai.lastname'], "\n"; // Anai
 
 $error = new Label\LabelSet(array(
     'jp' => array(
@@ -28,6 +31,6 @@ $error = new Label\LabelSet(array(
     ),
 ));
 
-echo $error->get('jp.404', 'http://hoge.jp/'), "\n"; // 'http://hoge.jp'が見つかりません
-echo $error->get('en.404', 'http://hoge.com/'), "\n"; // 'http://hoge.com' not found
+echo $error['jp.404']->sprintf('http://hoge.jp/'), "\n"; // 'http://hoge.jp'が見つかりません
+echo $error['en.404']->sprintf('http://hoge.com/'), "\n"; // 'http://hoge.com' not found
 ```
